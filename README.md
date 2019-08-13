@@ -14,7 +14,7 @@ $ npm i -g shell-fs
 $ sfs mkdir ./fist/cat/dog
 ```
 
-## Like: cp -rf
+## Like: cp -r
 
 ```sh
 $ sfs cp dog.js dist
@@ -30,7 +30,7 @@ $ sfs mv dog.js dist
 $ sfs mv 'dog.js, cat.js ./fish' dist
 ```
 
-## Like: rm -rf
+## Like: rm -r
 
 ```sh
 $ sfs rm dog.js
