@@ -1,10 +1,10 @@
 {
   "name": "shell-fs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Run fs in shell",
   "scripts": {
-    "copy": "yarn start -mv dist -out es && yarn start -cp 'package.json, README.md, .npmignore' -out es && yarn start -rm es/tsconfig.build.tsbuildinfo",
-    "delete": "yarn start -rm 'es, dist'",
+    "copy": "yarn start mv dist es && yarn start cp 'package.json, README.md, .npmignore' es && yarn start rm es/tsconfig.build.tsbuildinfo",
+    "delete": "yarn start rm 'es, dist'",
     "build": "yarn delete && PROD=true tsc -p tsconfig.build.json && yarn copy",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
     "start:dev": "concurrently --handle-input \"wait-on dist/main.js && nodemon\" \"tsc -w -p tsconfig.build.json\" ",

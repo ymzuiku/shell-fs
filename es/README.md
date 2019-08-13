@@ -11,29 +11,29 @@ $ npm i -g shell-fs
 ## Like: mkdir -p
 
 ```sh
-$ sfs -mkdir ./fist/cat/dog
+$ sfs mkdir ./fist/cat/dog
 ```
 
 ## Like: cp -rf
 
 ```sh
-$ sfs -cp dog.js -out dist
+$ sfs cp dog.js dist
 # multiple：
-$ sfs -cp 'dog.js, cat.js ./fish' -out dist
+$ sfs cp 'dog.js, cat.js ./fish' dist
 ```
 
 ## Like: mv
 
 ```sh
-$ sfs -mv dog.js -out dist
+$ sfs mv dog.js dist
 # multiple：
-$ sfs -mv 'dog.js, cat.js ./fish' -out dist
+$ sfs mv 'dog.js, cat.js ./fish' dist
 ```
 
 ## Like: rm -rf
 
 ```sh
-$ sfs -rm dog.js
+$ sfs rm dog.js
 # multiple：
-$ sfs -rm 'dog.js, cat.js ./fish'
+$ sfs rm 'dog.js, cat.js ./fish'
 ```

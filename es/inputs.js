@@ -31,7 +31,7 @@ exports.inputs = (defParams, logic) => __awaiter(this, void 0, void 0, function*
     let params = Object.assign({}, defParams);
     const startTime = Date.now();
     for (let i = 0; i < exports.argv.length; i++) {
-        const key = exports.argv[i].replace('-', '');
+        const key = exports.argv[i].replace('-', '').replace('-', '');
         const value = exports.argv[i + 1];
         if (params[key] !== undefined) {
             params[key] = Number.isNaN(Number(value)) ? value : Number(value);
@@ -50,7 +50,7 @@ exports.inputs = (defParams, logic) => __awaiter(this, void 0, void 0, function*
         fs.writeFileSync(exports.pwd('manifest-builder.js'), mb, { encoding: 'utf8' });
         return;
     }
-    if (exports.argv[0] === 'helper') {
+    if (exports.argv[0] === '--helper') {
         const readmePath = path_1.resolve(__dirname, './README.md');
         if (fs.existsSync(readmePath)) {
             const help = fs.readFileSync(readmePath, {
@@ -60,7 +60,7 @@ exports.inputs = (defParams, logic) => __awaiter(this, void 0, void 0, function*
         }
         return;
     }
-    if (exports.argv[0] === 'version') {
+    if (exports.argv[0] === '--version') {
         const selfPackagePath = path_1.resolve(__dirname, 'package.json');
         if (fs.existsSync(selfPackagePath)) {
             const selfPackageJSON = require(selfPackagePath);

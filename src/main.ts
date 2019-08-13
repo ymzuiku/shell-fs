@@ -18,49 +18,49 @@ const defParams = {
   package: null as string,
 };
 
-const cp = (params = defParams) => {
-  const list = params.cp.split(',');
+const cp = (input: string, out: string) => {
+  const list = input.split(',');
   list.forEach(value => {
     const inPath = value.trim();
     const fileString = inPath.split('/');
     const file = fileString[fileString.length - 1];
-    const outPath = pwd(params.out);
+    const outPath = pwd(out);
 
     if (fs.existsSync(outPath)) {
       const stat = fs.statSync(outPath);
       if (stat && stat.isDirectory()) {
-        fs.copySync(pwd(inPath), pwd(params.out, file));
+        fs.copySync(pwd(inPath), pwd(out, file));
       } else if (stat && stat.isFile()) {
-        fs.copySync(pwd(inPath), pwd(params.out));
+        fs.copySync(pwd(inPath), pwd(out));
       }
     } else {
-      fs.copySync(pwd(inPath), pwd(params.out));
+      fs.copySync(pwd(inPath), pwd(out));
     }
   });
 };
 
-const mv = (params = defParams) => {
-  const list = params.mv.split(',');
+const mv = (input: string, out: string, params = defParams) => {
+  const list = input.split(',');
   list.forEach(value => {
     const inPath = value.trim();
     const fileString = inPath.split('/');
     const file = fileString[fileString.length - 1];
-    const outPath = pwd(params.out);
+    const outPath = pwd(out);
 
     if (params.file) {
-      fs.moveSync(pwd(inPath), pwd(params.out, file));
+      fs.moveSync(pwd(inPath), pwd(out, file));
     } else {
-      fs.moveSync(pwd(inPath), pwd(params.out));
+      fs.moveSync(pwd(inPath), pwd(out));
     }
   });
 };
 
-const mkdir = (params = defParams) => {
-  fs.mkdirpSync(pwd(params.mdkir));
+const mkdir = (input: string) => {
+  fs.mkdirpSync(pwd(input));
 };
 
-const rm = (params = defParams) => {
-  const list = params.rm.split(',');
+const rm = (input: string) => {
+  const list = input.split(',');
   list.forEach(value => {
     const file = value.trim();
     const target = pwd(file);
@@ -71,27 +71,23 @@ const rm = (params = defParams) => {
 };
 
 const logic = (params = defParams) => {
-  if (params.cp) {
-    if (!params.out) {
-      console.log('Throw! params is error');
-      process.exit(1);
-    }
-    cp(params);
+  if (argv[0] === 'cp') {
+    cp(argv[1], argv[2]);
 
     return;
   }
-  if (params.mdkir) {
-    mkdir(params);
+  if (argv[0] === 'mkdir') {
+    mkdir(argv[1]);
 
     return;
   }
-  if (params.rm) {
-    rm(params);
+  if (argv[0] === 'rm') {
+    rm(argv[1]);
 
     return;
   }
-  if (params.mv) {
-    mv(params);
+  if (argv[0] === 'mv') {
+    mv(argv[1], argv[2], params);
 
     return;
   }

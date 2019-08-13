@@ -13,47 +13,47 @@ const defParams = {
     out: null,
     package: null,
 };
-const cp = (params = defParams) => {
-    const list = params.cp.split(',');
+const cp = (input, out) => {
+    const list = input.split(',');
     list.forEach(value => {
         const inPath = value.trim();
         const fileString = inPath.split('/');
         const file = fileString[fileString.length - 1];
-        const outPath = inputs_1.pwd(params.out);
+        const outPath = inputs_1.pwd(out);
         if (fs.existsSync(outPath)) {
             const stat = fs.statSync(outPath);
             if (stat && stat.isDirectory()) {
-                fs.copySync(inputs_1.pwd(inPath), inputs_1.pwd(params.out, file));
+                fs.copySync(inputs_1.pwd(inPath), inputs_1.pwd(out, file));
             }
             else if (stat && stat.isFile()) {
-                fs.copySync(inputs_1.pwd(inPath), inputs_1.pwd(params.out));
+                fs.copySync(inputs_1.pwd(inPath), inputs_1.pwd(out));
             }
         }
         else {
-            fs.copySync(inputs_1.pwd(inPath), inputs_1.pwd(params.out));
+            fs.copySync(inputs_1.pwd(inPath), inputs_1.pwd(out));
         }
     });
 };
-const mv = (params = defParams) => {
-    const list = params.mv.split(',');
+const mv = (input, out, params = defParams) => {
+    const list = input.split(',');
     list.forEach(value => {
         const inPath = value.trim();
         const fileString = inPath.split('/');
         const file = fileString[fileString.length - 1];
-        const outPath = inputs_1.pwd(params.out);
+        const outPath = inputs_1.pwd(out);
         if (params.file) {
-            fs.moveSync(inputs_1.pwd(inPath), inputs_1.pwd(params.out, file));
+            fs.moveSync(inputs_1.pwd(inPath), inputs_1.pwd(out, file));
         }
         else {
-            fs.moveSync(inputs_1.pwd(inPath), inputs_1.pwd(params.out));
+            fs.moveSync(inputs_1.pwd(inPath), inputs_1.pwd(out));
         }
     });
 };
-const mkdir = (params = defParams) => {
-    fs.mkdirpSync(inputs_1.pwd(params.mdkir));
+const mkdir = (input) => {
+    fs.mkdirpSync(inputs_1.pwd(input));
 };
-const rm = (params = defParams) => {
-    const list = params.rm.split(',');
+const rm = (input) => {
+    const list = input.split(',');
     list.forEach(value => {
         const file = value.trim();
         const target = inputs_1.pwd(file);
@@ -63,24 +63,20 @@ const rm = (params = defParams) => {
     });
 };
 const logic = (params = defParams) => {
-    if (params.cp) {
-        if (!params.out) {
-            console.log('Throw! params is error');
-            process.exit(1);
-        }
-        cp(params);
+    if (inputs_1.argv[0] === 'cp') {
+        cp(inputs_1.argv[1], inputs_1.argv[2]);
         return;
     }
-    if (params.mdkir) {
-        mkdir(params);
+    if (inputs_1.argv[0] === 'mkdir') {
+        mkdir(inputs_1.argv[1]);
         return;
     }
-    if (params.rm) {
-        rm(params);
+    if (inputs_1.argv[0] === 'rm') {
+        rm(inputs_1.argv[1]);
         return;
     }
-    if (params.mv) {
-        mv(params);
+    if (inputs_1.argv[0] === 'mv') {
+        mv(inputs_1.argv[1], inputs_1.argv[2], params);
         return;
     }
 };

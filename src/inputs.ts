@@ -30,7 +30,7 @@ export const inputs = async <S>(defParams: S, logic: any) => {
   const startTime = Date.now();
 
   for (let i = 0; i < argv.length; i++) {
-    const key = argv[i].replace('-', '');
+    const key = argv[i].replace('-', '').replace('-', '');
     const value = argv[i + 1];
     if (params[key] !== undefined) {
       params[key] = Number.isNaN(Number(value)) ? value : Number(value);
@@ -57,7 +57,7 @@ export const inputs = async <S>(defParams: S, logic: any) => {
     return;
   }
 
-  if (argv[0] === 'helper') {
+  if (argv[0] === '--helper') {
     const readmePath = resolve(__dirname, './README.md');
     if (fs.existsSync(readmePath)) {
       const help = fs.readFileSync(readmePath, {
@@ -68,7 +68,7 @@ export const inputs = async <S>(defParams: S, logic: any) => {
 
     return;
   }
-  if (argv[0] === 'version') {
+  if (argv[0] === '--version') {
     const selfPackagePath = resolve(__dirname, 'package.json');
 
     if (fs.existsSync(selfPackagePath)) {
