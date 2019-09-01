@@ -73,7 +73,6 @@ exports.inputs = (defParams, logic) => __awaiter(this, void 0, void 0, function*
         return;
     }
     yield logic(params);
-    console.log(`Done in ${(Date.now() - startTime) / 1000}s`);
     process.exit(0);
 });
 //# sourceMappingURL=inputs.js.map
