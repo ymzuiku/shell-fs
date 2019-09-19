@@ -1,6 +1,6 @@
 {
-  "name": "shell-fs",
-  "version": "1.0.1",
+  "name": "sfs",
+  "version": "1.0.2",
   "description": "Run fs in shell",
   "scripts": {
     "copy": "yarn start mv dist es && yarn start cp 'package.json, README.md, .npmignore' es && yarn start rm es/tsconfig.build.tsbuildinfo",
@@ -73,6 +73,7 @@
     "url": "https://github.com/ymzuiku/shell-fs"
   },
   "bin": {
+    "shell-fs": "main.js",
     "sfs": "main.js"
   }
 }
